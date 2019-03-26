@@ -1,23 +1,9 @@
-pipeline {
-  agent {
-    node {
-      label 'nodejs'
-    }
-  }
-  options {
-    timeout(time: 20, unit: 'MINUTES')
-  }
-  stages {
-    stage('preamble') {
-      steps {
-        script {
-          openshift.withCluster() {
-            openshift.withProject() {
-              echo "Using project: ${openshift.project()}"
-            }
-          }
-        }
-      }
-    }
-  }
+node('nodejs') {
+  stage 'build'
+  openshiftBuild(buildConfig: 'nodejs-ex', showBuildLogs: 'true')
+  openshift.withCluster()
+    openshift.withProject()
+      echo "Using project: ${openshift.project()}"
+  stage 'deploy'
+  openshiftDeploy(deploymentConfig: 'nodejs-ex')
 }
