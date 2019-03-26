@@ -5,5 +5,5 @@ node('nodejs') {
     openshift.withProject()
       echo "Using project: ${openshift.project()}"
   stage 'deploy'
-  openshiftDeploy(deploymentConfig: 'nodejs-ex')
+    openshiftDeploy(deploymentConfig: 'nodejs-ex')
 }
