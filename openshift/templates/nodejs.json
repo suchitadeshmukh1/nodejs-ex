@@ -1,3 +1,4 @@
+
 {
   "kind": "Template",
   "apiVersion": "v1",
@@ -17,8 +18,8 @@
   },
   "message": "The following service(s) have been created in your project: ${NAME}.\n\nFor more information about using this template, including OpenShift considerations, see https://github.com/waveywaves/nodejs-ex/blob/master/README.md.",
   "labels": {
-      "template": "nodejs-example",
-      "app": "nodejs-example"
+    "template": "nodejs-example",
+    "app": "nodejs-example"
   },
   "objects": [
     {
@@ -31,10 +32,32 @@
         }
       },
       "spec": {
-        "clusterIP": "None",
         "ports": [
           {
             "name": "web",
+            "port": 8080,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "name": "${NAME}"
+        }
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "${NAME}-headless",
+        "annotations": {
+          "description": "Exposes and load balances the application pods"
+        }
+      },
+      "spec": {
+        "clusterIP": "None",
+        "ports": [
+          {
+            "name": "web-headless",
             "port": 8080,
             "targetPort": 8080
           }
@@ -95,10 +118,10 @@
               "namespace": "${NAMESPACE}",
               "name": "nodejs:${NODEJS_VERSION}"
             },
-            "env":  [
+            "env": [
               {
-                  "name": "NPM_MIRROR",
-                  "value": "${NPM_MIRROR}"
+                "name": "NPM_MIRROR",
+                "value": "${NPM_MIRROR}"
               }
             ]
           }
@@ -196,19 +219,20 @@
                   }
                 },
                 "livenessProbe": {
-                    "timeoutSeconds": 3,
-                    "initialDelaySeconds": 30,
-                    "httpGet": {
-                        "path": "/",
-                        "port": 8080
-                    }
+                  "timeoutSeconds": 3,
+                  "initialDelaySeconds": 30,
+                  "httpGet": {
+                    "path": "/",
+                    "port": 8080
+                  }
                 },
                 "resources": {
-                    "limits": {
-                        "memory": "${MEMORY_LIMIT}"
-                    }
+                  "limits": {
+                    "memory": "${MEMORY_LIMIT}"
+                  }
                 },
                 "env": [
+                  
                 ]
               }
             ]
@@ -230,7 +254,7 @@
       "displayName": "Namespace",
       "description": "The OpenShift Namespace where the ImageStream resides.",
       "required": true,
-      "value": "vibhav-jenkins"
+      "value": "openshift"
     },
     {
       "name": "NODEJS_VERSION",
