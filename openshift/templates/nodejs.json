@@ -63,7 +63,7 @@
           }
         ],
         "selector": {
-          "name": "${NAME}"
+          "name": "${NAME}-headless"
         }
       }
     },
