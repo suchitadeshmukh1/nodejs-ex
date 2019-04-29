@@ -96,6 +96,7 @@ pipeline {
 						openshift.withProject() {
 							def connectedNormalService = openshift.verifyService('nodejs-example')
 							def connectedHeadlessService = openshift.verifyService('nodejs-example-headless')
+              def connectedHeadlessServiceNS = openshift.verifyService('nodejs-ex-headless.jenkins-headless-test.svc.cluster.local')
 							if (connectedNormalService) {
 								echo "Able to connect to nodejs-app"
 							} else {
@@ -103,6 +104,12 @@ pipeline {
 							}
 
 							if (connectedHeadlessService) {
+								echo "Able to connect to nodejs-app-headless"
+							} else {
+								echo "Unable to connect to nodejs-app-headless"
+							}
+
+              if (connectedHeadlessServiceNS) {
 								echo "Able to connect to nodejs-app-headless"
 							} else {
 								echo "Unable to connect to nodejs-app-headless"
