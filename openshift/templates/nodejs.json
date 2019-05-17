@@ -3,7 +3,7 @@
   "kind": "Template",
   "apiVersion": "v1",
   "metadata": {
-    "name": "nodejs-example",
+    "name": "nodejs-ex",
     "annotations": {
       "openshift.io/display-name": "Node.js",
       "description": "An example Node.js application with no database. For more information about using this template, including OpenShift considerations, see https://github.com/waveywaves/nodejs-ex/blob/master/README.md.",
@@ -98,7 +98,10 @@
         "name": "${NAME}",
         "annotations": {
           "description": "Defines how to build the application",
-          "template.alpha.openshift.io/wait-for-ready": "true"
+          "template.alpha.openshift.io/wait-for-ready": "true",
+	  "jenkins.openshift.io/enable-multibranch-sync": "true",
+	  "jenkins.openshift.io/multibranch-sync.branches": "master,test"
+	  
         }
       },
       "spec": {
