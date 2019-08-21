@@ -21,7 +21,7 @@ pipeline {
             }
         }
     }
-    stage('cleanup') {
+    /*stage('cleanup') {
       steps {
         script {
             openshift.withCluster() {
@@ -109,16 +109,16 @@ pipeline {
 								echo "Unable to connect to nodejs-app-headless"
 							}
 
-              						/*if (connectedHeadlessServiceNS) {
+              						if (connectedHeadlessServiceNS) {
 								echo "Able to connect to nodejs-app-headless"
 							} else {
 								echo "Unable to connect to nodejs-app-headless"
-							}*/
+							}
 						}
 					}
 				}
 			}
-		}
+		}*/
   }
 }
 
